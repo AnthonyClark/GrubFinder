@@ -1,52 +1,71 @@
-var lat=43;
-var lng=-79;
 var map;
-var service;
-var infowindow;
+var userPosition = new google.maps.LatLng();
+var geocoder;
+var userInput = document.getElementById('addrSearch');
 
-function initialize(lat, lng) {
+function initialize() {
 
-	var init_pos = new google.maps.LatLng(lat,lng);
-	var mapOptions = {
-		center: init_pos,
-		zoom: 14,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-	map = new google.maps.Map(document.getElementById("map_canvas"),
-	mapOptions);
-	
-	var request = {
-		location: init_pos,
-		radius: '2000',
-		types: ['food']
-	};
-	
-	service = new google.maps.places.PlacesService(map);
-	service.nearbySearch(request, callback);
+    //var pos = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+        center: userPosition,
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"),
+	       mapOptions);
+
 }
 
 function getLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(centerOnPos);
-	}
-	else {
-		initialize(lat,lng);
-	}
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            geoLocSuccess,
+            geoLocFail,
+            { timeout: 1000 }
+        );
+
+        function geoLocSuccess(position) {
+
+            userPosition = new google.maps.LatLng(
+                    position.coords.latitude,
+                    position.coords.longitude
+            );
+            initialize();
+
+        }
+    }
+    else {
+        geoLocFail();
+    }
 }
 
-function centerOnPos(position) {
-	initialize(position.coords.latitude, position.coords.longitude);
+function codeAddress() {
+    geocoder = new google.maps.Geocoder();
+    var address = document.getElementById("addrSearch").value;
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+
+            userPosition = results[0].geometry.location;
+            if (map && false) {
+                map.setCenter(userPosition);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: userPosition
+                });
+            }
+            else {
+                initialize(
+                    userPosition.lat,
+                    userPosition.lng
+                 );
+            }
+        }
+        else {
+            //TODO: Handle error
+            alert("Geocode was not successful for the following reason: " + status);
+        }
+    });
 }
 
-function callback(results, status) {
-	if (status != google.maps.places.PlacesServiceStatus.OK) {
-		alert(status);
-		return;
-	}
-	for (var i = 0, result; result = results[i]; i++) {
-		var marker = new google.maps.Marker({
-		map: map,
-		position: result.geometry.location
-		});
-	}
+function geoLocFail() {
 }
