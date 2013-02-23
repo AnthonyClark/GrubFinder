@@ -2,16 +2,40 @@
 <html>
 	<head>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-		<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDZ5qi0Zo-6BAKuS7EFpYBNCs4iia2sOeg&sensor=true"></script>
-		<script type="text/javascript" src="script.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
-		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
-		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css" rel="stylesheet">
-		<link href="style.min.css" rel="stylesheet">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+		<script src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDZ5qi0Zo-6BAKuS7EFpYBNCs4iia2sOeg&sensor=true" type="text/javascript"></script>
+		<script src="script.js" type="text/javascript"></script>
+		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js" type="text/javascript"></script>
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet" />
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link href="style.min.css" rel="stylesheet" />
+
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$('.options .command').click(function () {
+					$(".options .menu").slideToggle(150);
+					$(this).children('i').toggleClass("icon-minus");
+				});
+			});
+		</script>
 	</head>
 	<body>
-		<button class="command btn btn-large btn-primary" type="button" onclick="getLocation()">Show Me Lunch</button>
-		<div id="map_canvas" class="map-canvas"></div>
+		<div class="row-fluid">
+			
+			<!--Options Menu-->
+			<div class="options">
+				<ul id="menu" class="menu">
+					<li>Options 1</li>
+				</ul>
+				<a class="command command-open btn btn-small btn-primary">
+					<i class="icon-white icon-plus"></i>
+				</a>
+			</div>
+		
+			<div class="content">
+				<button class="command btn btn-large btn-primary" type="button" onclick="getLocation()">Show Me Lunch</button>
+				<!--<div id="map_canvas" class="map-canvas"></div>-->
+			</div>
+		</div>
 	</body>
 </html>

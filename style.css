@@ -1,28 +1,51 @@
 html,
-.map-canvas {
-	height: 100%
+.map-canvas,
+.options {
+	height: 100%;
 }
 
 body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background-image:url("images/bg3.jpg");
+	background-image: url("images/bg3.jpg");
 }
 
-.command {
+.content .command {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	margin-top: -22px;
 	margin-left: -85px;
-	z-index: 10;
+}
+
+.options {}
+
+.options ul,
+.options ul li {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+
+.options .menu {
+	display: none;
+	background-color: rgba(0, 0, 0, .8);
+	margin-bottom: 5px;
+	color: #FFF;
+	padding: 15px;
+}
+
+.options .command {
+	margin: 0px auto;
+	width: 20px;
+	display: block;
 }
 
 .map-canvas {
 	height: 100%;
 	width: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
