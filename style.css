@@ -1,6 +1,7 @@
 html,
 .map-canvas,
-.options {
+.options,
+.row-fluid {
 	height: 100%;
 }
 
@@ -17,6 +18,15 @@ body {
 	left: 50%;
 	margin-top: -22px;
 	margin-left: -85px;
+}
+
+.map-canvas {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
 }
 
 .options {}
@@ -42,10 +52,7 @@ body {
 	display: block;
 }
 
-.map-canvas {
-	height: 100%;
-	width: 100%;
-	position: absolute;
-	top: 0px;
-	left: 0px;
+.row-fluid {
+	z-index: 10;
+	position: relative;
 }
