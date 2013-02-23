@@ -20,25 +20,71 @@ body {
 
 .content {
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-top: -61px;
-	margin-left: -85px;
 	border: 0px;
 	text-align: center;
+	padding: 8px;
+	background-color: rgba(0, 0, 0, .4);
+	min-width: 300px;
+	max-width: 600px;
+}
+
+.content .inner {
+	background-color: #FFF;
+	padding: 20px;
+}
+
+.content input[type="text"] {
+	border: 1px solid #DDD;
+	background: none;
+	color: #000;
+	font-size: 30px;
+	height: auto;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	margin: 0px;
+	text-align: center;
+	-moz-transition: .25s;
+	-o-transition: .25s;
+	-webkit-transition: .25s;
+	transition: .25s;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.content input[type="text"]:focus {
+	background: #FFF;
+	border-color: #CCC;
+	-moz-transition: .25s;
+	-o-transition: .25s;
+	-webkit-transition: .25s;
+	transition: .25s;
 }
 
 .content a {
 	text-align: center;
 }
 
-.content a:first-child {
-	margin-bottom: 20px;
+.content .command,
+.content .item {
+	margin-top: 20px;
 }
 
 .footer {
 	background-color: rgba(0, 0, 0, .8);
 	padding: 15px;
+}
+
+.item label {
+	margin-bottom: 10px;
+}
+
+.item label .value {
+	font-weight: bold;
+}
+
+.content .item .slider {
+	width: 50%;
+	margin: 0px auto;
 }
 
 .map-canvas {
@@ -74,4 +120,9 @@ body {
 .row-fluid {
 	z-index: 10;
 	position: relative;
+}
+
+.shadow {
+	padding: 8px;
+	background: rgba(0, 0, 0, .7)
 }

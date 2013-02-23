@@ -18,55 +18,76 @@
 
 		<script type="text/javascript">
 			$(document).ready(function () {
-				var $options = $('.options .menu');
+				var $menu = $('.options .menu');
 				var $command = $('.options .toggle');
 
 				//Create options
 				var options = [
-					{ key: "distance", type: "slider", label: "", value: "10", placeholder: "", position: "footer", weight: 0 },
-					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: "menu", weight: 0 }
+					{ key: "distance", type: "slider", label: "Travel Distance", value: 5, placeholder: "", position: "inner" },
+					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: "menu" }
 				]
 
 				//Create option UI elements
 				options.forEach(function (option) {
 					
 					//Create wrapper html
-					var wrapper = '<div class="item">' + (option.label != "" ? '<label>' + option.label + '<label>' : "") + "{0}" + '</div>';
+					var wrapper = '<div class="item">' + (option.label ? '<label>' + option.label + (option.type == 'slider' ? ' <span class="value"><span class="max">' + option.value + '</span>km</span>' : "") + '</label>' : "") + '{0}' + '</div>';
 
 					switch(option.type)
 					{
 						case "slider":
-							$("." + option.position).append(wrapper.replace('{0}', '<div id="' + option.key + "-" + option.type + '" class="slider"></div>'));
+							$("." + option.position).append(wrapper.replace('{0}', '<span class="amount"></span><div id="' + option.key + "-" + option.type + '" class="slider"></div>'));
+							$("#" + option.key + "-" + option.type).slider({
+								value: option.value, step: 1, min: 1, max: 20, slide: function (event, ui) {
+									$(".max").html(ui.value);
+								}
+							});
 							break;
 
 						case "textfield":
 							$("." + option.position).append(wrapper.replace('{0}', '<input type="text" id="' + option.key + "-" + option.type + '" class="textfield" placeholder="' + option.placeholder + '"></input>'));
 							break;
 					}
-
-					$(".slider").slider();
 				});
 
 				//Toggle options UI view
 				$('.toggle').click(function () {
-					$options.slideToggle(150)
+					$menu.slideToggle(150);
 					$command.children('i').toggleClass("icon-minus");
 				});
 
 				//Hide options with ESC key
 				$(document).keyup(function (e) {
-					if (e.keyCode == 27 && $options.is(":visible")) {
+					if (e.keyCode == 27 && $menu.is(":visible")) {
 						$command.click();
 					}
 				});
 
 				//Hide menu when not focused
 				$(document).mouseup(function (e) {
-					if ($options.has(e.target).length === 0 && $options.is(":visible") && !$(e.target).hasClass("toggle") && !$(e.target).parent(".toggle").hasClass("toggle")) {
+					if ($menu.has(e.target).length === 0 && $menu.is(":visible") && !$(e.target).hasClass("toggle") && !$(e.target).parent(".toggle").hasClass("toggle")) {
 						$command.click();
 					}
 				});
+
+				$(window).resize(function () {
+					$(".content").center();
+				});
+
+				$(".content").center();
 			});
+
+			//Center plugin, http://stackoverflow.com/a/210733/612113
+			jQuery.fn.center = function () {
+				this.css("position", "absolute");
+				this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
+				this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+				return this;
+			}
+
+			function centerSearch() {
+				$(".content").center();
+			}
 		</script>
 	</head>
 	<body>
@@ -75,23 +96,19 @@
 			<div class="header">
 				<!--Options Menu-->
 				<div class="options">
-					<div id="menu" class="menu">
-						
-					</div>
+					<div id="menu" class="menu"></div>
 					<a class="command toggle btn btn-small btn-primary">
-						<i class="icon-white icon-plus"></i>
+						<i class="icon-white icon-cog" title="Customize Search Options"></i>
 					</a>
 				</div>
 			</div>
-
-            <form id="addrForm" onSubmit="codeAddress(); return false;" style="z-index:50">
-                <input autofocus id="addrSearch" type="text" size="50" placeholder="I want lunch around this area.." autocomplete="off">
-                <input class="search btn btn-small" type="submit" value="Search" onclick="submit">
-            </form>
 		
 			<div class="content">
-				<a class="command btn btn-large btn-primary" onclick="getLocation()">Show Me Lunch</a><br />
-				<a class="command toggle btn btn-small btn-inverse">Advanced <i class="icon-white icon-cog"></i></a>
+				<div class="inner">
+					<input autofocus id="addrSearch" type="text" size="50" autocomplete="off" placeholder="Enter a location">
+					<a class="command btn btn-large btn-primary" onclick="getLocation()">Suggest Lunch</a>
+					<!--<a class="command toggle btn btn-small btn-inverse">Advanced <i class="icon-white icon-cog"></i></a>-->
+				</div>
 			</div>
 
 			<div class="footer navbar-fixed-bottom"></div>
