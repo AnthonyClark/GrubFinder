@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<link rel="stylesheet" href="style.min.css">
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDZ5qi0Zo-6BAKuS7EFpYBNCs4iia2sOeg&sensor=true">
-	</script>
-	<script type="text/javascript" src="script.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-</head>
-<body onload="getLocation()">
-<div id="container">
-	<div id="header">
-		<h1> What should I get for lunch? </h1>
-	</div>
-	<div id="map_canvas" style="width:100%; height:100%"></div>
-	<div id="footer">
-		footer
-	</div>
-</div>
-</body>
+	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDZ5qi0Zo-6BAKuS7EFpYBNCs4iia2sOeg&sensor=true"></script>
+		<script type="text/javascript" src="script.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="style.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<button class="command btn btn-large btn-primary" type="button" onclick="getLocation()">Show Me Lunch</button>
+		<div id="map_canvas" class="map-canvas"></div>
+	</body>
 </html>

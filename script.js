@@ -14,7 +14,6 @@ function initialize(lat, lng) {
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"),
 	mapOptions);
-	document.getElementById("map_canvas").style.zIndex="1";
 	
 	var request = {
 		location: init_pos,
@@ -26,19 +25,16 @@ function initialize(lat, lng) {
 	service.nearbySearch(request, callback);
 }
 
-function getLocation()
-{
-	if (navigator.geolocation)
-	{
+function getLocation() {
+	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(centerOnPos);
 	}
-	else
-	{
+	else {
 		initialize(lat,lng);
 	}
 }
-function centerOnPos(position)
-{
+
+function centerOnPos(position) {
 	initialize(position.coords.latitude, position.coords.longitude);
 }
 
