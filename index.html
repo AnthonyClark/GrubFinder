@@ -12,9 +12,9 @@
 
 		<script type="text/javascript">
 			$(document).ready(function () {
-				$('.options .command').click(function () {
+				$('.options .command, .advanced').click(function () {
 					$(".options .menu").slideToggle(150);
-					$(this).children('i').toggleClass("icon-minus");
+					$('.options .command').children('i').toggleClass("icon-minus");
 				});
 			});
 		</script>
@@ -37,12 +37,13 @@
                 <input class="search btn btn-small" type="button" value="Search" onclick="codeAddress()" >
             </form>
 		
-			<div class="content">
-				<button class="command btn btn-large btn-primary" type="button" onclick="getLocation()">Show Me Lunch</button>
+			<div class="content well">
+				<a class="command btn btn-large btn-primary" type="button" onclick="getLocation()">Show Me Lunch</a>
+				<a class="advanced btn btn-small">Advanced <i class="icon-cog"></i></a>
 			</div>
+
+			<!--Map-->
+			<div id="map_canvas" class="map-canvas"></div>
 		</div>
-		
-		<!--Map-->
-		<div id="map_canvas" class="map-canvas"></div>
 	</body>
 </html>
