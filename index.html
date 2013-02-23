@@ -2,19 +2,52 @@
 <html>
 	<head>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
-		<script src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDZ5qi0Zo-6BAKuS7EFpYBNCs4iia2sOeg&sensor=true" type="text/javascript"></script>
-		<script src="script.js" type="text/javascript"></script>
+		
+		<!--CDN-->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+		<script src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDZ5qi0Zo-6BAKuS7EFpYBNCs4iia2sOeg&sensor=true"></script>
 		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js" type="text/javascript"></script>
 		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet" />
 		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/flick/jquery-ui.css" rel="stylesheet" />
+		
+		<!--Local-->
+		<script src="script.js" type="text/javascript"></script>
 		<link href="style.min.css" rel="stylesheet" />
 
 		<script type="text/javascript">
 			$(document).ready(function () {
-				var $options = $(".options .menu");
+				var $options = $('.options .menu');
 				var $command = $('.options .toggle');
 
+				//Create options
+				var options = [
+					{ key: "distance", type: "slider", label: "", value: "10", placeholder: "", position: "footer", weight: 0 },
+					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: "menu", weight: 0 }
+				]
+
+				//Create option UI elements
+				options.forEach(function (option) {
+					
+					//Create wrapper html
+					var wrapper = '<div class="item">' + (option.label != "" ? '<label>' + option.label + '<label>' : "") + "{0}" + '</div>';
+
+					switch(option.type)
+					{
+						case "slider":
+							$("." + option.position).append(wrapper.replace('{0}', '<div id="' + option.key + "-" + option.type + '" class="slider"></div>'));
+							break;
+
+						case "textfield":
+							$("." + option.position).append(wrapper.replace('{0}', '<input type="text" id="' + option.key + "-" + option.type + '" class="textfield" placeholder="' + option.placeholder + '"></input>'));
+							break;
+					}
+
+					$(".slider").slider();
+				});
+
+				//Toggle options UI view
 				$('.toggle').click(function () {
 					$options.slideToggle(150)
 					$command.children('i').toggleClass("icon-minus");
@@ -39,14 +72,16 @@
 	<body>
 		<div class="row-fluid">
 			
-			<!--Options Menu-->
-			<div class="options">
-				<ul id="menu" class="menu">
-					<li>Options 1</li>
-				</ul>
-				<a class="command toggle btn btn-small btn-primary">
-					<i class="icon-white icon-plus"></i>
-				</a>
+			<div class="header">
+				<!--Options Menu-->
+				<div class="options">
+					<div id="menu" class="menu">
+						
+					</div>
+					<a class="command toggle btn btn-small btn-primary">
+						<i class="icon-white icon-plus"></i>
+					</a>
+				</div>
 			</div>
 
             <form id="addrForm" onSubmit="codeAddress(); return false;" style="z-index:50">
@@ -55,9 +90,11 @@
             </form>
 		
 			<div class="content">
-				<a class="command btn btn-large btn-primary" type="button" onclick="getLocation()">Show Me Lunch</a><br />
+				<a class="command btn btn-large btn-primary" onclick="getLocation()">Show Me Lunch</a><br />
 				<a class="command toggle btn btn-small btn-inverse">Advanced <i class="icon-white icon-cog"></i></a>
 			</div>
+
+			<div class="footer navbar-fixed-bottom"></div>
 
 			<!--Map-->
 			<div id="map_canvas" class="map-canvas"></div>
