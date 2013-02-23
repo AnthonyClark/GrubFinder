@@ -32,9 +32,9 @@
 				</a>
 			</div>
 
-            <form style="z-index:50">
+            <form id="addrForm" onSubmit="codeAddress(); return false;" style="z-index:50">
                 <input id="addrSearch" autofocus type="text" size="50" placeholder="I want lunch around this area..">
-                <input class="search btn btn-small" type="button" value="Search" onclick="codeAddress()" >
+                <input class="search btn btn-small" type="submit" value="Search" onclick="submit">
             </form>
 		
 			<div class="content">
