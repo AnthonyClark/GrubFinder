@@ -31,6 +31,11 @@
 					<i class="icon-white icon-plus"></i>
 				</a>
 			</div>
+
+            <form style="z-index:50">
+                <input id="addrSearch" autofocus type="text" size="50" placeholder="I want lunch around this area..">
+                <input class="search btn btn-small" type="button" value="Search" onclick="codeAddress()" >
+            </form>
 		
 			<div class="content">
 				<button class="command btn btn-large btn-primary" type="button" onclick="getLocation()">Show Me Lunch</button>
