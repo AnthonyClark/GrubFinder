@@ -6,6 +6,8 @@ var userInput = document.getElementById('addrSearch');
 var infowindow;
 var placeForGrub;
 
+// Make the autocomplete work for address search
+
 function initialize() {
 
     //var pos = new google.maps.LatLng(lat, lng);
@@ -17,6 +19,13 @@ function initialize() {
     map = new google.maps.Map(document.getElementById("map_canvas"),
 	       mapOptions);
 
+    var inputField = document.getElementById('addrSearch');
+    var inputFieldOptions = {
+        types: ['(regions)'],
+        componentRestrictions: { country: 'ca' }
+    };
+        autocomplete = new google.maps.places.Autocomplete(inputField, inputFieldOptions);
+        console.log(Err.message);
 }
 
 function getLocation() {
@@ -80,14 +89,15 @@ function getGrub() {
         radius: maxDistance,
         types: ['food','restaurant','meal_delivery','meal_takeaway']
     };
-    // TODO: find bug in code from this point on.
+
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, randomSpot);
 }
 
 function randomSpot(grubResults, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var i = (Math.random() * (grubResults.length - 1));
+        var i = Math.floor((Math.random() * grubResults.length));
+        console.log("random place int: " + i);
         placeForGrub = grubResults[i];
         createMarker(placeForGrub);
     }
