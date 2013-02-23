@@ -80,6 +80,7 @@ function getGrub() {
         radius: maxDistance,
         types: ['food','restaurant','meal_delivery','meal_takeaway']
     };
+    // TODO: find bug in code from this point on.
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, randomSpot);
 }
