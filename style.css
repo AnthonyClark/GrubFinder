@@ -24,13 +24,16 @@ body {
 	left: 50%;
 	margin-top: -61px;
 	margin-left: -85px;
-	background-color: rgba(0, 0, 0, .9);
 	border: 0px;
+	text-align: center;
 }
 
 .content a {
 	text-align: center;
-	margin-top: 20px;
+}
+
+.content a:first-child {
+	margin-bottom: 20px;
 }
 
 .map-canvas {
