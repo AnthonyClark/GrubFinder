@@ -1,8 +1,14 @@
 html,
 .map-canvas,
-.options,
 .row-fluid {
 	height: 100%;
+}
+
+form,
+.options,
+.content {
+	position: relative;
+	z-index: 10;
 }
 
 body {
@@ -12,12 +18,19 @@ body {
 	background-image: url("images/bg3.jpg");
 }
 
-.content .command {
+.content {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin-top: -22px;
+	margin-top: -61px;
 	margin-left: -85px;
+	background-color: rgba(0, 0, 0, .9);
+	border: 0px;
+}
+
+.content a {
+	text-align: center;
+	margin-top: 20px;
 }
 
 .map-canvas {
@@ -28,8 +41,6 @@ body {
 	left: 0px;
 	z-index: 1;
 }
-
-.options {}
 
 .options ul,
 .options ul li {
