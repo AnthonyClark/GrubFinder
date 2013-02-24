@@ -8,8 +8,6 @@ var placeForGrub;
 
 // Make the autocomplete work for address search
 
-<<<<<<< HEAD
-=======
 var PI = {
 
     onReady: function () {
@@ -108,7 +106,6 @@ var MAP = {
 
 $(document).ready(PI.onReady);
 
->>>>>>> origin/DEV
 function initialize() {
 
     //var pos = new google.maps.LatLng(lat, lng);
