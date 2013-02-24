@@ -6,23 +6,34 @@ var geocoder;
 var infowindow;
 var placeForGrub;
 
-// Make the autocomplete work for address search
+var GV = {
+    mapInitComplete: false,
+    
+}
 
 var PI = {
 
     onReady: function () {
         console.log("onReady");
         GEO.getNavLoc();
+        PI.initializeAutoComplete();
         $("#searchForm").submit(PI.searchHandler);
 
     },
 
     searchHandler: function () {
         if (!init_done) {
-            MAP.initialize(
-                GEO.addrToLatLng( $("#search").val() )
-            );
+            GEO.addrToLatLng($("#search").val());
         }
+    },
+
+    initializeAutoComplete: function () {
+
+        var inputField = document.getElementById('search');
+        var inputFieldOptions = {
+            types: ['(regions)']
+        };
+        autocomplete = new google.maps.places.Autocomplete(inputField, inputFieldOptions);
     }
 
 }
@@ -99,7 +110,12 @@ var MAP = {
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
     }
+
+}
+
+var GRUB = {
 
 }
 
@@ -123,7 +139,6 @@ function initialize() {
         componentRestrictions: { country: 'ca' }
     };
         autocomplete = new google.maps.places.Autocomplete(inputField, inputFieldOptions);
-        console.log(Err.message);
 }
 
 function getLocation() {
