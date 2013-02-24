@@ -48,16 +48,14 @@
 					<i class="icon-white icon-plus"></i>
 				</a>
 			</div>
-
-            <form id="addrForm" onSubmit="codeAddress(); return false;" style="z-index:50">
-                <input autofocus id="addrSearch" type="text" size="50" placeholder="I want lunch around this area.." autocomplete="off">
-                <input class="search btn btn-small" type="submit" value="Search" onclick="submit">
-            </form>
 		
 			<div class="content">
-				<a class="command btn btn-large btn-primary" type="button" onclick="getLocation()">Show Me Lunch</a><br />
-				<a class="command toggle btn btn-small btn-inverse">Advanced <i class="icon-white icon-cog"></i></a>
-			</div>
+                <form id="searchForm" onSubmit="return false;">
+                    <input autofocus id="search" type="text" size="50" placeholder="I want lunch around this area.." autocomplete="off" /><br />
+				    <button class="command btn btn-large btn-primary" type="submit">Show Me Lunch</button><br />
+				    <a class="command toggle btn btn-small btn-inverse">Advanced <i class="icon-white icon-cog"></i></a>
+			    </form>
+            </div>
 
 			<!--Map-->
 			<div id="map_canvas" class="map-canvas"></div>
