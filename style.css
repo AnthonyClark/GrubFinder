@@ -104,16 +104,9 @@ body {
 	padding: 15px 15px 10px;
 }
 
-.options ul,
-.options ul li {
-	padding: 0px;
-	margin: 0px;
-	list-style: none;
-}
-
 .options .command {
 	margin: 0px auto;
-	width: 20px;
+	width: 70px;
 	display: block;
 }
 
