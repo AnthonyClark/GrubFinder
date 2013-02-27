@@ -122,47 +122,6 @@ var GRUB = {
 
 $(document).ready(PI.onReady);
 
-function initialize() {
-
-    //var pos = new google.maps.LatLng(lat, lng);
-    var mapOptions = {
-        center: userPosition,
-        zoom: 14,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    map = new google.maps.Map(document.getElementById("map_canvas"),
-	       mapOptions);
-
-    var inputField = document.getElementById('addrSearch');
-    var inputFieldOptions = {
-        types: ['(regions)'],
-        componentRestrictions: { country: 'ca' }
-    };
-        autocomplete = new google.maps.places.Autocomplete(inputField, inputFieldOptions);
-}
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            geoLocSuccess,
-            geoLocFail,
-            { timeout: 1000 }
-        );
-
-        function geoLocSuccess(position) {
-
-            userPosition = new google.maps.LatLng(
-                    position.coords.latitude,
-                    position.coords.longitude
-            );
-            initialize();
-
-        }
-    }
-    else {
-        geoLocFail();
-    }
-}
 
 function codeAddress() {
     geocoder = new google.maps.Geocoder();
@@ -192,8 +151,6 @@ function codeAddress() {
     });
 }
 
-function geoLocFail() {
-}
 
 function getGrub() {
 
