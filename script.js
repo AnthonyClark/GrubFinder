@@ -32,6 +32,8 @@ var PI = {
         if (!init_done) {
             GEO.addrToLatLng(GV.savedAddress);
         }
+
+        $('#search-form').walkabout({ location: '#footer', animation: 'slide' }, function () { $(".content").center(); });
     },
 
     initializeAutoComplete: function () {
