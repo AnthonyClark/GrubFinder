@@ -4,14 +4,20 @@ var userPosition = new google.maps.LatLng();
 var maxDistance = String(2000);
 var geocoder;
 var infowindow;
-var placeForGrub;
 
 // Global Variables
 var GV = {
     mapInitComplete: false,
     savedAddress: "",
-    userPostion: {}
+    userPostion: {},
+    placeForGrub: {}
     
+}
+
+// Global Services
+var GS = {
+    geocoder: {},
+    service: {}
 }
 
 // Page initialization
@@ -22,6 +28,9 @@ var PI = {
         console.log("onReady");
         GEO.getNavLoc(PI.initializeAutoComplete);
         $("#search-form").submit(PI.searchHandler);
+
+        // Initialize Global Services
+        GS.geocoder = new google.maps.Geocoder();
 
     },
 
@@ -50,8 +59,7 @@ var PI = {
 var GEO = {
     addrToLatLng: function (addr) {
 
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': addr }, function (results, status) {
+        GS.geocoder.geocode({ 'address': addr }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
 
                 console.log("addrToLatLng status okay");
@@ -66,8 +74,8 @@ var GEO = {
     latLngToAddr: function (pos, callback) {
 
         console.log("latLngToAddr");
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'latLng': pos },
+
+        GS.geocoder.geocode({ 'latLng': pos },
 
             function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
@@ -155,12 +163,12 @@ var GRUB = {
         service.nearbySearch(request, GRUB.randomSpot);
     },
 
-    randomSpot: function () {
+    randomSpot: function (grubResults, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             var i = Math.floor((Math.random() * grubResults.length));
             console.log("random place int: " + i);
-            placeForGrub = grubResults[i];
-            GRUB.createMarker(placeForGrub);
+            GV.placeForGrub = grubResults[i];
+            GRUB.createMarker(GV.placeForGrub);
         }
         else {
             console.log("Status NOT OKAY from Places Request.");
