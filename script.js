@@ -1,6 +1,7 @@
 var map;
 var infowindow;
 var markersArray = [];
+var directionsService = new google.maps.DirectionsService();
 // Global Variables
 var GV = {
     mapInitComplete: false,
@@ -15,7 +16,8 @@ var GV = {
 // Global Services
 var GS = {
     geocoder: {},
-    service: {}
+    service: {},
+    directionsDisplay: {},
 }
 
 // Page initialization
@@ -29,6 +31,7 @@ var PI = {
 
         // Initialize Global Services
         GS.geocoder = new google.maps.Geocoder();
+        GS.directionsDisplay = new google.maps.DirectionsRenderer();
 
     },
 
@@ -135,6 +138,7 @@ var MAP = {
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+            GS.directionsDisplay.setMap(map);
             GV.init_done = 1;
         } else {
             console.log("else");
@@ -146,6 +150,18 @@ var MAP = {
     center: function (position) {
         console.log("set center");
         map.setCenter(position);
+    },
+    calcRoute: function(dest) {
+        var request = {
+            origin:GV.savedPosition,
+            destination:dest,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+        directionsService.route(request, function (result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                GS.directionsDisplay.setDirections(result);
+            }
+        });
     }
 }
 
@@ -163,6 +179,7 @@ var GRUB = {
             position: place.geometry.location
         });
         markersArray[1] = marker;
+        MAP.calcRoute( placeLoc );
 
     },
 
