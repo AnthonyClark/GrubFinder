@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"  />
+		<title>GrubHub - Suggestions on places to eat!</title>
 
 		<!--Styles-->
 		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet" />
@@ -25,7 +26,7 @@
 
 				//Create options
 				var options = [
-					{ key: "distance", type: "slider", label: "Travel Distance", value: 5, placeholder: "", position: "#search-form" },
+					{ key: "distance", type: "slider", label: "Travel Distance", value: 5, placeholder: "", position: "#header", class: "search-distance" },
 					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: ".menu" }
 				]
 
@@ -33,7 +34,7 @@
 				options.forEach(function (option) {
 					
 					//Create wrapper html
-					var wrapper = '<div class="item">' + (option.label ? '<label>' + option.label + (option.type == 'slider' ? ' <span class="value"><span class="max">' + option.value + '</span>km</span>' : "") + '</label>' : "") + '{0}' + '</div>';
+					var wrapper = '<div class="item ' + option.class + '">' + (option.label ? '<label>' + option.label + (option.type == 'slider' ? ' <span class="value"><span class="max">' + option.value + '</span>km</span>' : "") + '</label>' : "") + '{0}' + '</div>';
 
 					switch(option.type)
 					{
