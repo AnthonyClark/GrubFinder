@@ -1,17 +1,14 @@
-var init_done = false;
 var map;
-var userPosition = new google.maps.LatLng();
-var maxDistance = String(2000);
-var geocoder;
 var infowindow;
-
+var markersArray = [];
 // Global Variables
 var GV = {
     mapInitComplete: false,
     savedAddress: "",
-    userPostion: {},
-    placeForGrub: {}
-    
+    savedPosition: {},
+    placeForGrub: {},
+    init_done: false,
+    maxDistance: String(2000)
 }
 
 // Global Services
@@ -38,9 +35,9 @@ var PI = {
         
         GV.savedAddress = $("#search").val();
 
-        if (!init_done) {
-            GEO.addrToLatLng(GV.savedAddress);
-        }
+        
+        GEO.addrToLatLng(GV.savedAddress);
+        
 
         $('#search-form').walkabout({ location: '#footer', animation: 'slide' }, function () { $(".content").center(); });
     },
@@ -49,7 +46,8 @@ var PI = {
 
         var inputField = document.getElementById('search');
         var inputFieldOptions = {
-            types: ['(regions)']
+            //types: ['(cities)'],
+            //componentRestrictions: { country: 'ca' }
         };
         autocomplete = new google.maps.places.Autocomplete(inputField, inputFieldOptions);
     }
@@ -63,7 +61,9 @@ var GEO = {
             if (status == google.maps.GeocoderStatus.OK) {
 
                 console.log("addrToLatLng status okay");
-                MAP.initialize( results[0].geometry.location);
+                GV.savedPosition = results[0].geometry.location;
+                MAP.initialize(GV.savedPosition);
+                GRUB.getGrub();
             } else {
                 console.log("GeocoderStatus is NOT OK");
                 return;
@@ -81,7 +81,7 @@ var GEO = {
             if (status == google.maps.GeocoderStatus.OK) {
                 var str = results[0].formatted_address;
 
-                if($.isFunction(callback)) {
+                if ($.isFunction(callback)) {
                     callback.call(this);
                 }
                 GV.savedAddress = str;
@@ -125,26 +125,42 @@ var GEO = {
 
 var MAP = {
 
-    initialize: function (init_pos) {
+    initialize: function (position) {
 
-        var mapOptions = {
-            center: init_pos,
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        if (!GV.init_done) {
+            var mapOptions = {
+                center: position,
+                zoom: 15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+            GV.init_done = 1;
+        } else {
+            console.log("else");
+            MAP.center(position);
+        }
 
+    },
+    center: function (position) {
+        console.log("set center");
+        map.setCenter(position);
     }
-
 }
 
 var GRUB = {
-    createMarker: function (Place) {
+    createMarker: function (place) {
+
+        // TODO: Remove marker function
+        if(markersArray[0]){
+            markersArray[0].setMap(null);
+        }
+
         var placeLoc = place.geometry.location;
         var marker = new google.maps.Marker({
             map: map,
             position: place.geometry.location
         });
+        markersArray[0] = marker;
 
         //google.maps.event.addListener(marker, 'click', function () {
         //    infowindow.setContent(place.name);
@@ -154,16 +170,17 @@ var GRUB = {
 
     getGrub: function () {
         var request = {
-            location: userPosition,
-            radius: maxDistance,
+            location: GV.savedPosition,
+            radius: GV.maxDistance,
             types: ['food', 'restaurant', 'meal_delivery', 'meal_takeaway']
         };
 
-        var service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, GRUB.randomSpot);
+        GS.service = new google.maps.places.PlacesService(map);
+        GS.service.nearbySearch(request, GRUB.randomSpot);
     },
 
     randomSpot: function (grubResults, status) {
+
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             var i = Math.floor((Math.random() * grubResults.length));
             console.log("random place int: " + i);
@@ -176,34 +193,4 @@ var GRUB = {
     }
 }
 
-
 $(document).ready(PI.onReady);
-
-
-function codeAddress() {
-    geocoder = new google.maps.Geocoder();
-    var address = document.getElementById("addrSearch").value;
-    geocoder.geocode({ 'address': address }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-
-            userPosition = results[0].geometry.location;
-            if (map && false) {
-                map.setCenter(userPosition);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: userPosition
-                });
-            }
-            else {
-                initialize(
-                    userPosition.lat,
-                    userPosition.lng
-                 );
-            }
-        }
-        else {
-            //TODO: Handle error
-            alert("Geocode was not successful for the following reason: " + status);
-        }
-    });
-}
