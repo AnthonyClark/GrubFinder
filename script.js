@@ -8,7 +8,8 @@ var GV = {
     savedPosition: {},
     placeForGrub: {},
     init_done: false,
-    maxDistance: String(2000)
+    maxDistance: String(2000),
+    markerImage: "images/ico1.png"
 }
 
 // Global Services
@@ -139,6 +140,7 @@ var MAP = {
             console.log("else");
             MAP.center(position);
         }
+        GRUB.createUserMarker(position);
 
     },
     center: function (position) {
@@ -148,11 +150,11 @@ var MAP = {
 }
 
 var GRUB = {
-    createMarker: function (place) {
+    createPlaceMarker: function (place) {
 
         // TODO: Remove marker function
-        if(markersArray[0]){
-            markersArray[0].setMap(null);
+        if(markersArray[1]){
+            markersArray[1].setMap(null);
         }
 
         var placeLoc = place.geometry.location;
@@ -160,12 +162,21 @@ var GRUB = {
             map: map,
             position: place.geometry.location
         });
-        markersArray[0] = marker;
+        markersArray[1] = marker;
 
-        //google.maps.event.addListener(marker, 'click', function () {
-        //    infowindow.setContent(place.name);
-        //    infowindow.open(map, this);
-        //});
+    },
+
+    createUserMarker: function (place) {
+        if (markersArray[0]) {
+            markersArray[0].setMap(null);
+        }
+
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place,
+            icon: GV.markerImage
+        });
+        markersArray[0] = marker;
     },
 
     getGrub: function () {
@@ -185,7 +196,7 @@ var GRUB = {
             var i = Math.floor((Math.random() * grubResults.length));
             console.log("random place int: " + i);
             GV.placeForGrub = grubResults[i];
-            GRUB.createMarker(GV.placeForGrub);
+            GRUB.createPlaceMarker(GV.placeForGrub);
         }
         else {
             console.log("Status NOT OKAY from Places Request.");
