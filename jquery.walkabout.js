@@ -20,7 +20,7 @@
 		//Move to new position
 		var clone = this.clone(true);
 		this.fadeOut(settings.duration, function () {
-			this.remove();
+			$(this).remove();
 			$(clone.hide()).appendTo(settings.location).fadeIn(settings.duration);
 		});
 
