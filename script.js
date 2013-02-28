@@ -1,7 +1,6 @@
 var map;
 var infowindow;
 var markersArray = [];
-var directionsService = new google.maps.DirectionsService();
 // Global Variables
 var GV = {
     mapInitComplete: false,
@@ -10,14 +9,17 @@ var GV = {
     placeForGrub: {},
     init_done: false,
     maxDistance: String(2000),
-    markerImage: "images/ico1.png"
+    markerImage: "images/ico1.png",
+    directionsOptions: { suppressMarkers: true },
+    travelMode: google.maps.TravelMode.DRIVING,
 }
 
 // Global Services
 var GS = {
     geocoder: {},
-    service: {},
+    placesService: {},
     directionsDisplay: {},
+    directionsService: {},
 }
 
 // Page initialization
@@ -26,13 +28,14 @@ var PI = {
     onReady: function () {
         
         console.log("onReady");
-        GEO.getNavLoc(PI.initializeAutoComplete);
-        $("#search-form").submit(PI.searchHandler);
 
         // Initialize Global Services
         GS.geocoder = new google.maps.Geocoder();
-        GS.directionsDisplay = new google.maps.DirectionsRenderer();
+        GS.directionsService = new google.maps.DirectionsService();
+        GS.directionsDisplay = new google.maps.DirectionsRenderer(GV.directionsOptions);
 
+        GEO.getNavLoc(PI.initializeAutoComplete);
+        $("#search-form").submit(PI.searchHandler);
     },
 
     searchHandler: function () {
@@ -155,9 +158,9 @@ var MAP = {
         var request = {
             origin:GV.savedPosition,
             destination:dest,
-            travelMode: google.maps.TravelMode.DRIVING
+            travelMode: GV.travelMode
         };
-        directionsService.route(request, function (result, status) {
+        GS.directionsService.route(request, function (result, status) {
             if (status == google.maps.DirectionsStatus.OK) {
                 GS.directionsDisplay.setDirections(result);
             }
@@ -203,8 +206,8 @@ var GRUB = {
             types: ['food', 'restaurant', 'meal_delivery', 'meal_takeaway']
         };
 
-        GS.service = new google.maps.places.PlacesService(map);
-        GS.service.nearbySearch(request, GRUB.randomSpot);
+        GS.placesService = new google.maps.places.PlacesService(map);
+        GS.placesService.nearbySearch(request, GRUB.randomSpot);
     },
 
     randomSpot: function (grubResults, status) {
