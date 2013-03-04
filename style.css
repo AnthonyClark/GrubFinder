@@ -32,15 +32,15 @@ body {
 	position: absolute;
 }
 
-/* Search */
-.search-distance,
-.search-form {
-	width: 600px;
-	margin: 0px auto;
-	text-align: center;
+.no-radius {
+	border-radius: 0px;
 }
 
+/* Search */
 .search-distance {
+	max-width: 600px;
+	margin: 0px auto;
+	text-align: center;
 	margin-top: 10px;
 }
 
@@ -58,12 +58,14 @@ body {
 
 .search-distance .ui-widget-content {
 	border: none;
-	background: rgba(0, 0, 0, .2)
+	background: rgba(0, 0, 0, .2);
 }
 
 .search-distance .ui-state-default {
-	background: #000;
-	color: #FFF;
+	background: rgba(0, 0, 0, 1);
+	color: #ffffff;
+	-webkit-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	background-color: #006dcc;
 	background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
@@ -76,23 +78,37 @@ body {
 }
 
 .search-form {
-	background-color: #FFF;
-	padding: 20px;
+	background-image: url(images/pw_maze_white.png);
+	padding: 10px;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+	margin: 0px;
+}
+
+.row-fluid .search-form > [class*="span"] {
+	float: none;
+	display: block;
+	margin: 0 auto;
+	border: 1px solid #CCC;
+	padding: 5px;
+	background: #FFF;
+}
+
+.search-form .search-icon {
+	position: absolute;
+	top: 11px;
+	left: 20px;
 }
 
 .search-form input[type="text"] {
-	border: 1px solid #DDD;
-	background: none;
+	border: 0px solid #DDD;
 	color: #000;
-	font-size: 30px;
+	font-size: 20px;
 	height: auto;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	margin: 0px;
-	text-align: center;
 	-moz-transition: .25s;
 	-o-transition: .25s;
 	-webkit-transition: .25s;
@@ -101,10 +117,14 @@ body {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+	padding: 3px;
+	padding-left: 40px;
+	background: #FFF;
+	display: inline-block;
 }
 
 .search-form input[type="text"]:focus {
-	background: #FFF;
+	background: #EEE;
 	border-color: #CCC;
 	-moz-transition: .25s;
 	-o-transition: .25s;
@@ -112,13 +132,16 @@ body {
 	transition: .25s;
 }
 
-.search-form a {
-	text-align: center;
+.row-fluid .search-form > [class*="span"] .command {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	padding-left: 5px;
+	background: #FFF;
 }
 
-.search-form .command,
-.search-form .item {
-	margin-top: 20px;
+.search-form a {
+	text-align: center;
 }
 
 .search-form .item label {
