@@ -25,9 +25,10 @@
 				var $menu = $('.slide #menu #menu-content');
 				var $command = $('.slide .toggle');
 
+				//Element positions
 				var positions = { header: '#header', left: '#left', center: '#center', right: '#right', footer: '#footer', menu: '#menu #menu-content' };
 
-				//Create options
+				//Configurable options
 				var options = [
 					{ key: "distance", type: "slider", label: "Travel Distance", value: 5, placeholder: "", position: positions.header, class: "search-distance" },
 					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: positions.menu }
@@ -82,7 +83,7 @@
 
 				$("#center").center();
 
-				//Animated rotation
+				//Animate on click
 				$(".command .btn").click(function () {
 					$target = $(this).children('[class*="icon-"]');
 					var animations = 'animated rotate';
