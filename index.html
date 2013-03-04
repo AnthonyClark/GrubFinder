@@ -22,20 +22,22 @@
 
 		<script type="text/javascript">
 			$(document).ready(function () {
-				var $menu = $('.options .menu');
-				var $command = $('.options .toggle');
+				var $menu = $('.slide #menu #menu-content');
+				var $command = $('.slide .toggle');
+
+				var positions = { header: '#header', left: '#left', center: '#center', right: '#right', footer: '#footer', menu: '#menu #menu-content' };
 
 				//Create options
 				var options = [
-					{ key: "distance", type: "slider", label: "Travel Distance", value: 5, placeholder: "", position: "#header", class: "search-distance" },
-					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: ".menu" }
+					{ key: "distance", type: "slider", label: "Travel Distance", value: 5, placeholder: "", position: positions.header, class: "search-distance" },
+					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: positions.menu }
 				]
 
 				//Create option UI elements
 				options.forEach(function (option) {
 					
 					//Create wrapper html
-					var wrapper = '<div class="item ' + option.class + '">' + (option.label ? '<label>' + option.label + (option.type == 'slider' ? ' <span class="value"><span class="max">' + option.value + '</span>km</span>' : "") + '</label>' : "") + '{0}' + '</div>';
+					var wrapper = '<div class="item ' + option.class + '">' + (option.label ? '<label for=' + option.key + "-" + option.type + '>' + option.label + (option.type == 'slider' ? ' <span class="value"><span class="max">' + option.value + '</span>km</span>' : "") + '</label>' : "") + '{0}' + '</div>';
 
 					switch(option.type)
 					{
@@ -57,7 +59,7 @@
 				//Toggle options UI view
 				$('.toggle').click(function () {
 					$menu.slideToggle(150);
-					$command.children('i').toggleClass("icon-minus");
+					$command.children('i').toggleClass("icon-chevron-down");
 				});
 
 				//Hide options with ESC key
@@ -102,20 +104,26 @@
 		<div class="row-fluid">
 			
 			<!--Header-->
-			<div id="header" class="header navbar-fixed-top">
-				<!--Options Menu-->
-				<div class="options">
-					<div id="menu" class="menu"></div>
-					<a class="command toggle btn btn-small btn-inverse">Advanced <i class="icon-white icon-cog" title="Customize Search Options"></i></a>
-				</div>
-			</div>
+			<div id="header" class="header navbar-fixed-top"></div>
 			
 			<!--Content-->
 			<div id="center" class="center"></div>
 
 			<!--Footer-->
 			<div id="footer" class="footer navbar-fixed-bottom">
-				<form id="search-form" class="shadow search-form" onSubmit="return false;">
+				
+				<!--Options Menu-->
+				<div class="slide row-fluid">
+					<div id="menu" class="menu">
+						<div class="span5">
+							<a class="command toggle btn btn-small btn-inverse no-radius"><i class="icon-white icon-chevron-up" title="Customize Search Options"></i></a>
+							<div id="menu-content" class="content texture-01 shadow"></div>
+						</div>
+					</div>
+				</div>
+				
+				<!--Search-->
+				<form id="search-form" class="shadow search-form texture-01" onSubmit="return false;">
 					<div class="span5 row-fluid">
 						<div class="span12">
 							<i class="icon-globe search-icon"></i>
