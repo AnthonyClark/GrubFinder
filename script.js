@@ -12,6 +12,7 @@ var GV = {
     markerImage: "images/ico1.png",
     directionsOptions: { suppressMarkers: true },
     travelMode: google.maps.TravelMode.DRIVING,
+    infoWinfow: {}
 }
 
 // Global Services
@@ -19,7 +20,7 @@ var GS = {
     geocoder: {},
     placesService: {},
     directionsDisplay: {},
-    directionsService: {},
+    directionsService: {}
 }
 
 // Page initialization
