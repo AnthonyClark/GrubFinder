@@ -9,6 +9,7 @@
 		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/flick/jquery-ui.css" rel="stylesheet" />
 		<link href="style.min.css" rel="stylesheet" />
+		<link href="animate.min.css" rel="stylesheet" />
 		
 		<!--Scripts-->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -78,6 +79,14 @@
 				});
 
 				$("#center").center();
+
+				//Animated rotation
+				$(".command .btn").click(function () {
+					$target = $(this).children('[class*="icon-"]');
+					var animations = 'animated rotate';
+					$target.addClass(animations);
+					var wait = window.setTimeout(function () { $target.removeClass(animations) }, 1500);
+				});
 			});
 
 			//Center plugin, http://stackoverflow.com/a/210733/612113
@@ -102,15 +111,22 @@
 			</div>
 			
 			<!--Content-->
-			<div id="center" class="center">
-				<form id="search-form" class="shadow search-form" onSubmit="return false;">
-					<input autofocus id="search" type="text" size="50" placeholder="I want lunch around this area.." autocomplete="off" /><br />
-					<button class="command btn btn-large btn-primary" type="submit">Show Me Lunch</button><br />
-				</form>
-			</div>
+			<div id="center" class="center"></div>
 
 			<!--Footer-->
-			<div id="footer" class="footer navbar-fixed-bottom"></div>
+			<div id="footer" class="footer navbar-fixed-bottom">
+				<form id="search-form" class="shadow search-form" onSubmit="return false;">
+					<div class="span5 row-fluid">
+						<div class="span12">
+							<i class="icon-globe search-icon"></i>
+							<input autofocus id="search" type="text" size="50" placeholder="I want lunch around ... try Toronto, ON" autocomplete="off" />
+							<div class="command">
+								<button class="btn btn btn-primary no-radius" type="submit" title="Search"><i class="icon-white icon-refresh"></i></button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
 
 			<!--Map-->
 			<div id="map_canvas" class="map-canvas"></div>
