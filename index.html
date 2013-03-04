@@ -30,7 +30,7 @@
 
 				//Configurable options
 				var options = [
-					{ key: "distance", type: "slider", label: "Travel Distance", value: 5, placeholder: "", position: positions.header, class: "search-distance" },
+					{ key: "distance", type: "slider", label: "Travel Distance", value: 5, placeholder: "", position: positions.menu, class: "search-distance" },
 					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: positions.menu }
 				]
 
@@ -38,15 +38,19 @@
 				options.forEach(function (option) {
 					
 					//Create wrapper html
-					var wrapper = '<div class="item ' + option.class + '">' + (option.label ? '<label for=' + option.key + "-" + option.type + '>' + option.label + (option.type == 'slider' ? ' <span class="value"><span class="max">' + option.value + '</span>km</span>' : "") + '</label>' : "") + '{0}' + '</div>';
+					var wrapper = '<div class="item ' + option.class + '">' + (option.label ? '<label for=' + option.key + "-" + option.type + '>' + option.label + (option.type == 'slider' ? ' <span class="value"><span class="max-distance">' + option.value + '</span>km</span>' : "") + '</label>' : "") + '{0}' + '</div>';
 
 					switch(option.type)
 					{
 						case "slider":
 							$(option.position).append(wrapper.replace('{0}', '<span class="amount"></span><div id="' + option.key + "-" + option.type + '" class="slider"></div>'));
 							$("#" + option.key + "-" + option.type).slider({
-								value: option.value, step: 1, min: 1, max: 20, slide: function (event, ui) {
-									$(".max").html(ui.value);
+								value: option.value, step: 1, min: 1, max: 20,
+								create: function (event, ui) {
+									$(".max-distance").html(option.value);
+								},
+								slide: function (event, ui) {
+									$(".max-distance").html(ui.value);
 								}
 							});
 							break;
@@ -105,7 +109,18 @@
 		<div class="row-fluid">
 			
 			<!--Header-->
-			<div id="header" class="header navbar-fixed-top"></div>
+			<div id="header" class="header navbar-fixed-top">
+				<div id="result" class="result">
+					<div id="result-content" class="content span5 texture-01 shadow row-fluid">
+						<div class="span2 image" style="background: url(http://placehold.it/100x75) no-repeat 0px;"></div>
+						<div class="span10 title">
+							<h1>Title Placeholder</h1>
+							<div class="address">An address with extra long text, this may not seem long, but it is!</div>
+							<div class="phone">(555) 555-5555</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			
 			<!--Content-->
 			<div id="center" class="center"></div>
