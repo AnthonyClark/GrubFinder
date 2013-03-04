@@ -45,6 +45,33 @@ body {
 	background-image: url(images/pw_maze_white.png);
 }
 
+/* Result */
+.result {
+	margin-top: 17px;
+}
+
+.result .content h1 {
+	font-size: 1.8em;
+	font-weight: normal;
+	margin: 0px;
+	line-height: normal;
+}
+
+.result .content .image {
+	height: 75px;
+}
+
+.row-fluid .result > [class*="span"] {
+	float: none;
+	display: block;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+.row-fluid .result > [class*="span"] [class*="span"] {
+	margin-bottom: 0px;
+}
+
 /* Search */
 .search-distance {
 	max-width: 600px;
