@@ -235,8 +235,11 @@ var GRUB = {
             $('.result-title').html(place.name);
             $('.result-address').html(place.formatted_address);
             $('.result-phone').html(place.formatted_phone_number);
+            var $photo = $('.result-photo');
             if (place.photos != null) {
-                $('.result-photo').css({ background: "url(" + place.photos[0].getUrl({ maxWidth: 100, maxHeight: 75 }) + ")" });
+            	$($photo).show().css({ background: "url(" + place.photos[0].getUrl({ maxWidth: 100, maxHeight: 75 }) + ")" });
+            } else {
+            	$photo.hide();
             }
             $('#result').show(125);
         }
