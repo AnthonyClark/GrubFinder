@@ -235,11 +235,10 @@ var GRUB = {
             $('.result-title').html(place.name);
             $('.result-address').html(place.formatted_address);
             $('.result-phone').html(place.formatted_phone_number);
-
             if (place.photos != null) {
-                console.log("PHOTO TYME");
-                $('.result-photo').css( {background: "url("+ place.photos[0].getUrl( { maxWidth: 100, maxHeight: 75 } )+")" } );
+                $('.result-photo').css({ background: "url(" + place.photos[0].getUrl({ maxWidth: 100, maxHeight: 75 }) + ")" });
             }
+            $('#result').show(125);
         }
     }
 }
