@@ -142,6 +142,7 @@ var MAP = {
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+            GS.placesService = new google.maps.places.PlacesService(map);
             GS.directionsDisplay.setMap(map);
             GV.init_done = 1;
         } else {
@@ -206,8 +207,6 @@ var GRUB = {
             radius: GV.maxDistance,
             types: ['food', 'restaurant', 'meal_delivery', 'meal_takeaway']
         };
-
-        GS.placesService = new google.maps.places.PlacesService(map);
         GS.placesService.nearbySearch(request, GRUB.randomSpot);
     },
 
