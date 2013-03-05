@@ -19,7 +19,6 @@
 		<script src="script.js" type="text/javascript"></script>
 		<script src="jquery.walkabout.js"></script>
 		
-
 		<script type="text/javascript">
 			$(document).ready(function () {
 				var $menu = $('.slide #menu #menu-content');
@@ -31,7 +30,7 @@
 				//Configurable options
 				var options = [
 					{ key: "distance", type: "slider", label: "Travel Distance", value: 5, placeholder: "", position: positions.menu, class: "search-distance" },
-					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: positions.menu }
+					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: positions.menu, class: "food-type" }
 				]
 
 				//Create option UI elements
@@ -61,10 +60,11 @@
 					}
 				});
 
-				//Toggle options UI view
+				//TODO: Toggle plugin
 				$('.toggle').click(function () {
-					$menu.slideToggle(150);
-					$command.children('i').toggleClass("icon-chevron-down");
+					$this = $(this), $target = $($this.data('target'));
+					$target.slideToggle(125);
+					$this.children('i').toggleClass($this.data('icon-open'));
 				});
 
 				//Hide options with ESC key
@@ -106,40 +106,47 @@
 		</script>
 	</head>
 	<body>
-		<div class="row-fluid">
 			
 			<!--Header-->
-			<div id="header" class="header navbar-fixed-top">
-				<div id="result" class="result">
-					<div id="result-content" class="content span5 texture-01 shadow row-fluid">
-						<div class="span2 image" style="background: url(http://placehold.it/100x75) no-repeat 0px;"></div>
-						<div class="span10 title">
-							<h1>Title Placeholder</h1>
-							<div class="address">An address with extra long text, this may not seem long, but it is!</div>
-							<div class="phone">(555) 555-5555</div>
+			<div id="header" class="header navbar-fixed-top row-fluid">
+				<div id="result" class="result row-fluid">
+					<div id="result-content" class="content texture-01 shadow">
+						<div class="row-fluid">
+							<div class="span2 image" style="background: url(http://placehold.it/250x75) no-repeat 0px;"></div>
+							<div class="span8 title">
+								<h1>Title Placeholder</h1>
+								<div class="address">An address with extra long text, this may not seem long, but it is!</div>
+								<div class="phone">(555) 555-5555</div>
+							</div>
+							<div class="span2">
+								<a href="#" class="btn btn btn-primary no-radius toggle" title="Show more" data-target="#result-details" data-icon-closed="icon-plus" data-icon-open="icon-minus"><i class="icon-white icon-plus"></i></a>
+							</div>
+						</div>
+						<div id="result-details" class="row-fluid details">
+							<div class="offset2 span9">
+								<h2>More Information</h2>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			
 			<!--Content-->
-			<div id="center" class="center"></div>
+			<div id="center" class="center row-fluid"></div>
 
 			<!--Footer-->
-			<div id="footer" class="footer navbar-fixed-bottom">
+			<div id="footer" class="footer navbar-fixed-bottom row-fluid">
 				
 				<!--Options Menu-->
 				<div class="slide row-fluid">
 					<div id="menu" class="menu">
-						<div class="span5">
-							<a class="command toggle btn btn-small btn-inverse no-radius"><i class="icon-white icon-chevron-up" title="Customize Search Options"></i></a>
-							<div id="menu-content" class="content texture-01 shadow"></div>
-						</div>
+						<a class="command toggle btn btn-small btn-inverse no-radius" data-target="#menu-content" data-icon-open="icon-chevron-down" data-icon-closed="icon-chevron-up"><i class="icon-white icon-chevron-up" title="Customize Search Options"></i></a>
+						<div id="menu-content" class="row-fluid texture-01 shadow content"></div>
 					</div>
 				</div>
 				
 				<!--Search-->
-				<form id="search-form" class="shadow search-form texture-01" onSubmit="return false;">
+				<form id="search-form" class="search-form shadow texture-01" onSubmit="return false;">
 					<div class="span5 row-fluid">
 						<div class="span12">
 							<i class="icon-globe search-icon"></i>
@@ -154,6 +161,5 @@
 
 			<!--Map-->
 			<div id="map_canvas" class="map-canvas"></div>
-		</div>
 	</body>
 </html>

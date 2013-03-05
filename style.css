@@ -1,14 +1,17 @@
 html,
-.map-canvas,
-.row-fluid {
+.map-canvas {
 	height: 100%;
 }
 
 body {
 	height: 100%;
-	margin: 0;
-	padding: 0;
-	background-image: url("images/bg3.jpg");
+	margin: 0px;
+	padding: 0px;
+	background: url("images/bg3.jpg") no-repeat center top;
+	-moz-background-size: 100% auto;
+	-o-background-size: 100% auto;
+	-webkit-background-size: 100% auto;
+	background-size: 100% auto;
 }
 
 #header, #left, #center, #right, #footer {
@@ -37,8 +40,29 @@ body {
 	box-shadow: none;
 }
 
+.header {
+	padding: 0px 12px;
+}
+
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+	margin: 0px;
+}
+
 .no-radius {
 	border-radius: 0px;
+}
+
+.result .content,
+.slide .menu > div {
+	max-width: 615px;
+	margin: 0 auto;
+}
+
+.row-fluid {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .texture-01 {
@@ -47,7 +71,11 @@ body {
 
 /* Result */
 .result {
-	margin-top: 17px;
+	padding: 12px 0px;
+}
+
+.result .content {
+	padding: 5px;
 }
 
 .result .content h1 {
@@ -61,7 +89,7 @@ body {
 	height: 75px;
 }
 
-.row-fluid .result > [class*="span"] {
+.result.row-fluid > [class*="span"] {
 	float: none;
 	display: block;
 	margin: 0 auto;
@@ -70,6 +98,17 @@ body {
 
 .row-fluid .result > [class*="span"] [class*="span"] {
 	margin-bottom: 0px;
+}
+
+.result .content .details {
+	display: none;
+}
+
+.result .content .details h2 {
+	font-size: 1.2em;
+	font-weight: normal;
+	margin: 10px 0px 0px;
+	line-height: normal;
 }
 
 /* Search */
@@ -119,6 +158,7 @@ body {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	margin: 0px;
+	z-index: 10;
 }
 
 .row-fluid .search-form > [class*="span"] {
@@ -128,6 +168,7 @@ body {
 	border: 1px solid #CCC;
 	padding: 5px;
 	background: #FFF;
+	position: relative;
 }
 
 .search-form .search-icon {
@@ -203,6 +244,8 @@ body {
 
 .slide {
 	margin-bottom: 7px;
+	z-index: 20;
+	position: relative;
 }
 
 .slide .menu .command {
@@ -218,8 +261,8 @@ body {
 .slide .menu .content {
 	display: none;
 	background-color: #FFF;
-	padding: 15px 15px 10px;
-	margin: 7px 0px 14px;
+	padding: 10px;
+	margin-top: 7px;
 }
 
 .slide .menu > [class*="span"] {
@@ -228,12 +271,34 @@ body {
 	min-height: 0px;
 }
 
-.row-fluid {
-	z-index: 10;
-	position: relative;
+.slide .menu .spacer {
+	height: 7px;
+	margin: 0px -7px -7px;
 }
 
 .shadow {
 	-webkit-box-shadow: 0px 0px 0px 7px rgba(0, 0, 0, .8);
 	box-shadow: 0px 0px 0px 7px rgba(0, 0, 0, .8);
+}
+
+/* Responsive */
+@media (max-width: 767px)  {
+	.header {
+		padding: 0px 12px;
+	}
+}
+
+@media (max-width: 979px) and (min-width: 768px) {
+	.header {
+		padding: 0px 12px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.container,
+	.navbar-static-top .container,
+	.navbar-fixed-top .container,
+	.navbar-fixed-bottom .container {
+		width: 100%;
+	}
 }
