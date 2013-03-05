@@ -178,13 +178,15 @@ var GRUB = {
             markersArray[1].setMap(null);
         }
 
-        var placeLoc = place.geometry.location;
+        // Create the place marker on the map
         var marker = new google.maps.Marker({
             map: map,
             position: place.geometry.location
         });
         markersArray[1] = marker;
-        MAP.calcRoute( placeLoc );
+
+        // Add directions to the map!
+        MAP.calcRoute( place.geometry.location );
 
     },
 
@@ -217,9 +219,18 @@ var GRUB = {
             console.log("random place int: " + i);
             GV.placeForGrub = grubResults[i];
             GRUB.createPlaceMarker(GV.placeForGrub);
+            // Request more places details
+            GS.placesService.getDetails(GV.placeForGrub, GRUB.placeInfo);
         }
         else {
             console.log("Status NOT OKAY from Places Request.");
+        }
+    },
+
+    placeInfo: function ( place, status ) {
+        if (status == google.maps.places.PlacesServiceStatus.OK){
+            //https://developers.google.com/maps/documentation/javascript/places#place_details
+            GV.placeForGrub = place;
         }
     }
 }
