@@ -207,7 +207,8 @@ var GRUB = {
         var request = {
             location: GV.savedPosition,
             radius: GV.maxDistance,
-            types: ['food', 'restaurant', 'meal_delivery', 'meal_takeaway']
+            types: ['food', 'restaurant', 'meal_delivery', 'meal_takeaway'],
+            keyword: "",
         };
         GS.placesService.nearbySearch(request, GRUB.randomSpot);
     },
@@ -215,8 +216,8 @@ var GRUB = {
     randomSpot: function (grubResults, status) {
 
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-            var i = Math.floor((Math.random() * grubResults.length));
-            console.log("random place int: " + i);
+            var i = Math.floor((Math.pow(Math.random(),1.3) * grubResults.length));
+            console.log("random place int: " + i + "/" + grubResults.length);
             GV.placeForGrub = grubResults[i];
             GRUB.createPlaceMarker(GV.placeForGrub);
             // Request more places details
