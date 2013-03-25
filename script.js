@@ -8,7 +8,7 @@ var GV = {
     savedPosition: {},
     placeForGrub: {},
     init_done: false,
-    maxDistance: String(2000),
+    maxDistance: String(4000), // Update on the slider initial value
     markerImage: "images/ico1.png",
     directionsOptions: { suppressMarkers: true },
     travelMode: google.maps.TravelMode.DRIVING,
@@ -224,6 +224,7 @@ var GRUB = {
         }
         else {
             console.log("Status NOT OKAY from Places Request.");
+            console.log(status);
         }
     },
 

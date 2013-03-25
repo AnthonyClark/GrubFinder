@@ -29,7 +29,7 @@
 
 				//Configurable options
 				var options = [
-					{ key: "distance", type: "slider", label: "Travel Distance", value: 5, placeholder: "", position: positions.menu, class: "search-distance" },
+					{ key: "distance", type: "slider", label: "Travel Distance", value: 4, placeholder: "", position: positions.menu, class: "search-distance" },
 					{ key: "foodtype", type: "textfield", label: "I want", value: "sushi", placeholder: "try sushi, thai, burger", position: positions.menu, class: "food-type" }
 				]
 
@@ -50,6 +50,9 @@
 								},
 								slide: function (event, ui) {
 									$(".max-distance").html(ui.value);
+								},
+								change: function (event, ui) {
+									GV.maxDistance = String(ui.value * 1000 );
 								}
 							});
 							break;
