@@ -7,7 +7,7 @@ The start of the GrubFinder project. On hold.
 
 
 A demo of the site (Still in dev, on hold, but still usable) is accessible at:
-http://anthonyclark.github.io/GrubHub/
+http://anthonyclark.github.io/GrubFinder/
 
 About
 =====
